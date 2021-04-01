@@ -8,10 +8,6 @@ app.use(express.static(__dirname + '/../client/dist'));
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.post('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should take the github username provided
-  // and get the repo information from the github API, then
-  // save the repo information in the database
   let username = req.body.username;
   let json = {
     message: {},
@@ -38,9 +34,13 @@ app.post('/repos', function (req, res) {
 
 });
 
-app.get('/repos', function (req, res) {
-  // TODO - your code here!
-  // This route should send back the top 25 repos
+app.get('/repos', async function (req, res) {
+  let json = {
+    message: {},
+    repos: []
+  }
+  json.repos = await db.top25();
+  res.json(json);
 });
 
 let port = 1128;
