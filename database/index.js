@@ -38,4 +38,9 @@ let save = (repos) => {
   return Promise.all(promises);
 }
 
+let top25 = async (sortParam = 'watchers') => {
+  return Repo.find().sort({sortParam: -1}).limit(25)
+}
+
 module.exports.save = save;
+module.exports.top25 = top25;
