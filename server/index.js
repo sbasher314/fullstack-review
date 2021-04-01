@@ -19,7 +19,8 @@ app.post('/repos', function (req, res) {
         db.save(response)
           .then(async docs => {
             //Do we need these on the server for any reason?
-            //I guess we can use this to send a msg back to client saying 'x repos inserted'
+            //I guess we can use this to send a msg back to client saying 'x repos inserted'?
+            json.message = {text: `${docs.length} repos inserted`};
             json.repos = await db.top25();
             console.log(json);
             res.json(json);
