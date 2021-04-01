@@ -39,7 +39,7 @@ let save = (repos) => {
 }
 
 let top25 = async (sortParam = 'watchers') => {
-  return Repo.find().sort({sortParam: -1}).limit(25)
+  return Repo.find().sort({[sortParam]: -1, updatedAt: -1}).limit(25);
 }
 
 module.exports.save = save;
