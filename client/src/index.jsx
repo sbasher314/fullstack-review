@@ -16,6 +16,9 @@ class App extends React.Component {
   search (term) {
     if (term.length > 0) {
       console.log(`${term} was searched`);
+      $.post('/repos', {username: term}, (response) => {
+        console.log(response);
+      })
     } else {
       console.log(`You didn't search anything`);
     }
