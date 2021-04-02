@@ -2,8 +2,12 @@
   "name": "github-fetcher-fullstack-v2",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "15.x"
+  },
   "main": "index.js",
   "scripts": {
+    "start": "nodemon server/index.js",
     "react-dev": "webpack --mode=development --watch",
     "server-dev": "nodemon server/index.js"
   },
