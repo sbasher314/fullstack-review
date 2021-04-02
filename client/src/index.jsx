@@ -10,10 +10,9 @@ class App extends React.Component {
     this.state = {
       repos: []
     }
-
   }
 
-  search (term) {
+  search (term = '') {
     if (term.length > 0) {
       console.log(`${term} was searched`);
       $.post('/repos', {username: term}, (response) => {
@@ -30,10 +29,15 @@ class App extends React.Component {
     }
   }
 
+  componentDidMount () {
+    this.search();
+  }
+
   render () {
     return (<div>
       <h1>Github Fetcher</h1>
       <RepoList repos={this.state.repos}/>
+      <hr />
       <Search onSearch={this.search.bind(this)}/>
     </div>)
   }
