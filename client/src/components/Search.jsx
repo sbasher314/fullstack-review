@@ -6,6 +6,7 @@ class Search extends React.Component {
     this.state = {
       term: ''
     }
+    this.input = React.createRef();
     this.button = React.createRef();
   }
 
@@ -18,6 +19,7 @@ class Search extends React.Component {
   search(e) {
     e.preventDefault();
     this.props.onSearch(this.state.term);
+    this.input.current.value = "";
   }
 
   keyUp(e) {
@@ -31,7 +33,7 @@ class Search extends React.Component {
       <div>
         <h4>Add more repos!</h4>
         Enter a github username:
-        <input value={this.state.terms} onKeyUp={(e) => this.keyUp(e)}   onChange={(e) => this.onChange(e)}/>
+        <input ref={this.input} value={this.state.terms} onKeyUp={(e) => this.keyUp(e)} onChange={(e) => this.onChange(e)}/>
         <button ref={this.button} onClick={(e) => this.search(e)}> Add Repos </button>
       </div>
     )

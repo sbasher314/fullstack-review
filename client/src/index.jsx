@@ -8,7 +8,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      repos: []
+      repos: [],
+      message: {}
     }
   }
 
@@ -16,14 +17,11 @@ class App extends React.Component {
     if (term.length > 0) {
       console.log(`${term} was searched`);
       $.post('/repos', {username: term}, (response) => {
-        console.log(response);
-        this.setState({repos: response.repos})
+        this.setState(response);
       })
     } else {
       $.get('/repos', response => {
-        console.log(response);
-        this.setState({repos: response.repos});
-
+        this.setState(response);
       })
       console.log(`You didn't search anything`);
     }
@@ -39,6 +37,7 @@ class App extends React.Component {
       <RepoList repos={this.state.repos}/>
       <hr />
       <Search onSearch={this.search.bind(this)}/>
+      <div>Message: {this.state.message.text}</div>
     </div>)
   }
 }
