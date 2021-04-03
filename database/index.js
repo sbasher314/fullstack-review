@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
-mongoose.connect(process.env.mongoDB);
+mongoose.connect(process.env.mongoDB,
+  { useNewUrlParser: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+    useUnifiedTopology: true
+  });
 
 let repoSchema = new mongoose.Schema({
   repoId: {type: Number, unique: true},
@@ -31,7 +36,9 @@ let save = (repos) => {
     };
     promises.push(
       new Promise(resolve => {
-        Repo.findOneAndUpdate({repoId: repo.id}, newRepo, {upsert: true, new: true}, (err, doc) => resolve(doc));
+        Repo.findOneAndUpdate({repoId: repo.id}, newRepo, {upsert: true}, (err, doc) => {
+          resolve(doc)
+        });
       })
     );
   }

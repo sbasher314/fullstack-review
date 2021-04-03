@@ -15,7 +15,12 @@ let getReposByUsername = (user) => {
   };
   return axios(options)
     .then(response => response.data)
-    .catch(error => error.response.data);
+    .catch(error => {
+      if (error.response.data.message === 'Not Found') {
+        error.response.data.message = 'User not found';
+      }
+      return error.response.data;
+    });
 }
 
 module.exports.getReposByUsername = getReposByUsername;
